@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import useWindowDimensions from './components/useWindowDimensions';
 import {Table , Group, Button, Stack, Modal, Loader ,ScrollArea, Text } from '@mantine/core'
 import { DoubleArrowRightIcon, ReaderIcon } from '@radix-ui/react-icons';
 import data from "./mockData";
 
-
+// const tb = document.getElementById('wibble')! as HTMLTableElement
 function App() {
   const [opened, setOpened] = useState(false);
   const [verticalDocs , showVerticalDocs] = useState([])
   const {width , height}  = useWindowDimensions()
+  const [tableBody, setTableBody] = useState(document.getElementById('wibble')! as HTMLTableElement) 
   const handleDisplayVertically=(documents:any)=>{
     // console.log(documents)
     showVerticalDocs(documents);
@@ -17,29 +18,48 @@ function App() {
 
   }
   // console.log({height, width})
+  useEffect(()=>{
+    const tableBody = document.getElementById('wibble') ! as HTMLTableElement
+    setTableBody(tableBody)
+    // console.log(tableBody.rows[])
+    // for(let i:number= 1 ; i < tableBody.rows.length; i++){
+    //         // console.log(`${i}th row`,tableBody.rows[i].offsetHeight)
+    //         // setHeightValue(tableBody.rows[i].offsetHeight)
+    // }
+    // console.log(tb?.rows[1].offsetHeight)
+    // console.log(tableBody.rows[2].offsetHeight)
+  },[width])
 
   const rows = data.map((items,index) => (
-    <tr key={items.id}>
+    <tr  key={items.id} >
       <td  align='left'><Text>{items.salary}</Text></td>
-      <td align='left'>{
-        (width <= 600 && items.documents.length >= 3 )|| 
-        (width <= 800 && items.documents.length >= 5 ) ||
-        (width <= 1000 && items.documents.length >= 7 ) ||
-        (width <= 1200 && items.documents.length >= 8 ) ||
-        (width <= 1400 && items.documents.length >= 10) ?
-        <div>
+      <td   align='left'>{
+        ( tableBody?.rows[items.id].offsetHeight > 52  )
+        // (width <= 800 && items.documents.length >= 5 ) 
+        // (width <= 1000 && items.documents.length >= 7 ) ||
+        // (width <= 1200 && items.documents.length >= 8 ) ||
+        // (width <= 1400 && items.documents.length >= 10) 
+        ?
+        // <div>     
         <Button color="dark" 
-          onClick={()=>handleDisplayVertically(items.documents)}>Documents <DoubleArrowRightIcon style={{marginLeft:'5'}}/></Button>
-        </div>
+        onClick={()=>handleDisplayVertically(items.documents)}>Documents <DoubleArrowRightIcon style={{marginLeft:'5'}}/>
+        </Button>
+    
+        
+        // </div>
        :
         // const identifiers = Object.keys(docs).slice(1)
         <Group > 
-          {items.documents.map((docs,index)=>{
-          return (<div key={index}  
-            style={{backgroundColor:'#f8f9fa', cursor:'pointer', borderRadius:5, color:'blue', display:'inline-flex', alignItems:'center', fontWeight:'bold'}}>
-              <ReaderIcon color='black'/><Text>{items.documents[index]}</Text></div>)}
-          )}
-        </Group>
+        {items.documents.map((docs,index)=>{
+        return (<span key={index}  
+          style={{ backgroundColor:'#f8f9fa', cursor:'pointer',
+            borderRadius:5, color:'blue', alignItems:'center', fontWeight:'bold'}}>
+            {/* <ReaderIcon color='black'/> */}
+            <Text style={{flexWrap:'nowrap'}}>{items.documents[index]}</Text>
+            {/* {items.documents[index]} */}
+            </span>)}
+        )}
+      </Group>
         
         } 
       </td>
@@ -55,10 +75,10 @@ function App() {
   return (
     <div className="App">
       <h1>Hello Aerial Ops</h1>
-      <Table  
+      <Table id='wibble' 
       style={{ marginTop: 10 }}>
         <thead>{ths}</thead>
-        <tbody>{rows}</tbody>
+        <tbody >{rows}</tbody>
       </Table>
 
       <Modal opened={opened} onClose={()=>setOpened(false)}>
