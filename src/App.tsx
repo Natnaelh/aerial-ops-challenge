@@ -33,7 +33,24 @@ function App() {
   const rows = data.map((items,index) => (
     <tr  key={items.id} style={{maxHeight:'40px'}}>
       <td  align='left'><Text>{items.salary}</Text></td>
-      <td   align='left'>{
+      <td   align='left'>
+        <div  style={{display:'inline-flex'}}>
+        <Button color="dark" style={{ position:'absolute', visibility:tableBody?.rows[items.id].offsetHeight > 40 ? "visible":"hidden"}}
+        onClick={()=>handleDisplayVertically(items.documents)}>Documents <DoubleArrowRightIcon style={{marginLeft:'5'}}/>
+        </Button>
+        <Group style={{ maxHeight:40, overflow:'hidden', visibility:tableBody?.rows[items.id].offsetHeight > 40 ? "hidden":"visible"}}> 
+        {items.documents.map((docs,index)=>{
+        return (<span key={index}  
+          style={{ backgroundColor:'#f8f9fa', cursor:'pointer',
+            borderRadius:5, color:'blue', alignItems:'center', fontWeight:'bold'}}>
+            {/* <ReaderIcon color='black'/> */}
+            <Text style={{flexWrap:'nowrap'}}>{items.documents[index]}</Text>
+            </span>)}
+        )}
+        </Group>
+        </div>
+
+        {/* {
         ( tableBody?.rows[items.id].offsetHeight > 40)
         // (width <= 800 && items.documents.length >= 5 ) 
         // (width <= 1000 && items.documents.length >= 7 ) ||
@@ -44,8 +61,6 @@ function App() {
         <Button color="dark" 
         onClick={()=>handleDisplayVertically(items.documents)}>Documents <DoubleArrowRightIcon style={{marginLeft:'5'}}/>
         </Button>
-    
-        
         // </div>
        :
         // const identifiers = Object.keys(docs).slice(1)
@@ -54,14 +69,12 @@ function App() {
         return (<span key={index}  
           style={{ backgroundColor:'#f8f9fa', cursor:'pointer',
             borderRadius:5, color:'blue', alignItems:'center', fontWeight:'bold'}}>
-            {/* <ReaderIcon color='black'/> */}
+            <ReaderIcon color='black'/>
             <Text style={{flexWrap:'nowrap'}}>{items.documents[index]}</Text>
-            {/* {items.documents[index]} */}
             </span>)}
         )}
       </Group>
-        
-        } 
+        }  */}
       </td>
     </tr>
   ));
