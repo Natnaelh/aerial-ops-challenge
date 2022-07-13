@@ -31,10 +31,10 @@ function App() {
   },[width])
 
   const rows = data.map((items,index) => (
-    <tr  key={items.id} >
+    <tr  key={items.id} style={{maxHeight:'40px'}}>
       <td  align='left'><Text>{items.salary}</Text></td>
       <td   align='left'>{
-        ( tableBody?.rows[items.id].offsetHeight > 52  )
+        ( tableBody?.rows[items.id].offsetHeight > 40)
         // (width <= 800 && items.documents.length >= 5 ) 
         // (width <= 1000 && items.documents.length >= 7 ) ||
         // (width <= 1200 && items.documents.length >= 8 ) ||
