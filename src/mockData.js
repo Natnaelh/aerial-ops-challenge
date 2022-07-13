@@ -16,8 +16,8 @@ const data = [
       "Social Media Accounts.pdf",
       "People Informations.pdf",
       "Health Status.pdf",
-      "People Informations.pdf",
-      "Health Status.pdf",
+      // "People Informations.pdf",
+      // "Health Status.pdf",
     ],
   },
   {
