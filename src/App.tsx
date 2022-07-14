@@ -34,13 +34,14 @@ function App() {
     <tr  key={items.id} style={{maxHeight:'40px'}}>
       <td  align='left'><Text>{items.salary}</Text></td>
       <td  align='left'>
-        <div  style={{display:'inline-flex'}}>
-          
-        <Button color="dark" style={{ position:'absolute', visibility:tableBody?.rows[items.id].offsetHeight > 40 ? "visible":"hidden"}}
+        <div  style={{display:'inline-flex', alignItems:'center' , margin:'3px 0'}}>
+        {/* <div> */}
+        <Button color="dark" style={{  position:'absolute', visibility:tableBody?.rows[items.id].offsetHeight > 60 ? "visible":"hidden"}}
           onClick={()=>handleDisplayVertically(items.documents)}>Documents <DoubleArrowRightIcon style={{marginLeft:'5'}}/>
         </Button>
+        {/* </div> */}
 
-        <Group style={{ maxHeight:40, overflow:'hidden', visibility:tableBody?.rows[items.id].offsetHeight > 40 ? "hidden":"visible"}}> 
+        <Group style={{ maxHeight:"60px", overflow:'hiddtelen', visibility:tableBody?.rows[items.id].offsetHeight > 60 ? "hidden":"visible"}}> 
         {items.documents.map((docs,index)=>{
         return (<div key={index}  
           style={{ backgroundColor:'#f8f9fa', cursor:'pointer',
@@ -63,8 +64,8 @@ function App() {
   return (
     <div className="App">
       <h1>Hello Aerial Ops</h1>
-      <Table id='table' 
-         style={{ marginTop: 10 }}>
+      <Table  id='table' 
+         style={{ border:'solid 2px gray'}}>
         <thead>{ths}</thead>
         <tbody >{rows}</tbody>
       </Table>
