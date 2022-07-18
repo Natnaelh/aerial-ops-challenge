@@ -33,7 +33,7 @@ function App() {
   const rows = data.map((items,index) => (
     <tr  key={items.id} style={{maxHeight:'40px'}}>
       <td  align='left'><Text>{items.salary}</Text></td>
-      <td  align='left'>
+      <td  align='left' >
         <div  style={{display:'inline-flex', alignItems:'center' , margin:'3px 0'}}>
         {/* <div> */}
         <Button color="dark" style={{  position:'absolute', visibility:tableBody?.rows[items.id].offsetHeight > 60 ? "visible":"hidden"}}
@@ -63,12 +63,14 @@ function App() {
     );
   return (
     <div className="App">
+      <div className='TableContainer'>
       <h1>Hello Aerial Ops</h1>
       <Table  id='table' 
          style={{ border:'solid 2px gray'}}>
         <thead>{ths}</thead>
         <tbody >{rows}</tbody>
       </Table>
+      </div>
 
       <Modal opened={opened} onClose={()=>setOpened(false)}>
         <ScrollArea >
